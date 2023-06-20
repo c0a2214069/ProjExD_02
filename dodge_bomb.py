@@ -62,7 +62,8 @@ def main():
             vy *= -1
         screen.blit(bonb,bonb_rect)# 練習1
         if kk_rect.colliderect(bonb_rect):#こうかとんと爆弾が衝突したら
-            return
+            kk_img = pg.image.load("ex02/fig/6.png")
+            #return
         pg.display.update()
         tmr += 1
         clock.tick(50)
