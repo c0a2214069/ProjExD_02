@@ -17,7 +17,7 @@ def main():
     x = random.randint(0,WIDTH)
     y = random.randint(0,HEIGHT)
     bonb_rect = bonb.get_rect()# 爆弾Surface（bonb）から爆弾Rect（bonb_rect）を抽出する
-    bonb_rect.center = x , y#中心座標を生成しておいた乱数にする
+    bonb_rect.center = x , y# 中心座標を生成しておいた乱数にする
     bg_img = pg.image.load("ex02/fig/pg_bg.jpg")
     kk_img = pg.image.load("ex02/fig/3.png")
     kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)
@@ -47,23 +47,23 @@ def main():
         key_lst = pg.key.get_pressed()
         total_move = [0,0]# 合計移動量
         for k,mv in delta.items():
-            if key_lst[k]:#辞書によって移動量を変更する 
+            if key_lst[k]:# 辞書によって移動量を変更する 
                 total_move[0] += mv[0]
                 total_move[1] += mv[1]
         kk_rect.move_ip(total_move)
         if not out_window(kk_rect)[0] or not out_window(kk_rect)[1]:# 練習4
-            kk_rect.move_ip(-total_move[0],-total_move[1])#マイナスした座標に移動することでプラスマイナス0にする
+            kk_rect.move_ip(-total_move[0],-total_move[1])# マイナスした座標に移動することでプラスマイナス0にする
         screen.blit(bg_img, [0, 0])
         screen.blit(kk_img, kk_rect)
         bonb_rect.move_ip(vx*avx,vy*avy)# 練習2
         print(kk_rect.centerx-bonb_rect.centerx)
         if not out_window(bonb_rect)[0]:# 練習4
             vx *= -1# 移動方向を反転させる
-        elif not out_window(bonb_rect)[1]:#練習4
+        elif not out_window(bonb_rect)[1]:# 練習4
             vy *= -1
         screen.blit(bonb,bonb_rect)# 練習1
-        if kk_rect.colliderect(bonb_rect):#こうかとんと爆弾が衝突したら
-            kk_img = pg.transform.rotozoom(pg.image.load("ex02/fig/6.png"),0,2.0)#画像を変更
+        if kk_rect.colliderect(bonb_rect):# こうかとんと爆弾が衝突したら
+            kk_img = pg.transform.rotozoom(pg.image.load("ex02/fig/6.png"),0,2.0)# 画像を変更
             screen.blit(kk_img, kk_rect)
             pg.display.update()
             time.sleep(3)
