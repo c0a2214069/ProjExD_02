@@ -21,8 +21,8 @@ def main():
     kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)
     clock = pg.time.Clock()
     tmr = 0
-    vx = 0# 練習2
-    vy = 0# 練習2
+    vx = +5# 練習2
+    vy = +5# 練習2
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT: 
@@ -30,13 +30,13 @@ def main():
 
         screen.blit(bg_img, [0, 0])
         screen.blit(kk_img, [900, 400])
+        key_lst = pg.key.get_pressed()
+        print(key_lst)
         bonb_rect.move_ip(vx,vy)
         screen.blit(bonb,bonb_rect)# 練習1
         pg.display.update()
         tmr += 1
-        vx += 5
-        vy += 5
-        clock.tick(10)
+        clock.tick(50)
 
 
 if __name__ == "__main__":
