@@ -5,8 +5,10 @@ import pygame as pg
 
 WIDTH, HEIGHT = 1600, 900
 delta = {pg.K_UP:(0,-5),pg.K_DOWN:(0,+5),pg.K_LEFT:(-5,0),pg.K_RIGHT:(+5,0)}
+angle = {(-5,5):[45,True],(-5,0):[0,True],(-5,-5):[-45,True],(0,-5):[-90,False],(0,5):[90,False],(5,-5):[-135,False],(5,5):[135,False],(5,0):[180,False]}
 
 def main():
+    accs = [a for a in range(1,11)]
     pg.display.set_caption("逃げろ！こうかとん")
     screen = pg.display.set_mode((WIDTH, HEIGHT))
     bonb = pg.Surface((20,20))# 練習1
@@ -14,7 +16,7 @@ def main():
     bonb.set_colorkey((0,0,0))# 黒い部分を透明にする
     x = random.randint(0,WIDTH)
     y = random.randint(0,HEIGHT)
-    bonb_rect = bonb.get_rect()# 爆弾Surface（bonb_img）から爆弾Rect（bonb_rect）を抽出する
+    bonb_rect = bonb.get_rect()# 爆弾Surface（bonb）から爆弾Rect（bonb_rect）を抽出する
     bonb_rect.center = x , y#中心座標を生成しておいた乱数にする
     bg_img = pg.image.load("ex02/fig/pg_bg.jpg")
     kk_img = pg.image.load("ex02/fig/3.png")
@@ -25,6 +27,7 @@ def main():
     tmr = 0
     vx = +5# 練習2
     vy = +5# 練習2
+    avx,avy = vx*accs[min(tmr//500,9)],vy*accs[min(tmr//500,9)]
     while True:
         def out_window(rect):
             """
@@ -52,7 +55,7 @@ def main():
             kk_rect.move_ip(-total_move[0],-total_move[1])#マイナスした座標に移動することでプラスマイナス0にする
         screen.blit(bg_img, [0, 0])
         screen.blit(kk_img, kk_rect)
-        bonb_rect.move_ip(vx,vy)# 練習2
+        bonb_rect.move_ip(vx*avx,vy*avy)# 練習2
         if not out_window(bonb_rect)[0]:# 練習4
             vx *= -1# 移動方向を反転させる
         elif not out_window(bonb_rect)[1]:#練習4
