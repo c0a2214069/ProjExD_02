@@ -53,6 +53,8 @@ def main():
         elif not out_window(bonb_rect)[1]:#練習4
             vy *= -1
         screen.blit(bonb,bonb_rect)# 練習1
+        if kk_rect.colliderect(bonb_rect):
+            return
         pg.display.update()
         tmr += 1
         clock.tick(50)
