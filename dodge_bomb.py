@@ -26,6 +26,13 @@ def main():
     vx = +5# 練習2
     vy = +5# 練習2
     while True:
+        def out_window(rect):
+            vertical,side = True,True
+            if rect.left < 0 or WIDTH <rect.right:
+                vertical = False
+            if rect.top < 0 or HEIGHT < rect.bottom:
+                side = False
+            return vertical,side
         for event in pg.event.get():
             if event.type == pg.QUIT: 
                 return
@@ -36,9 +43,15 @@ def main():
                 total_move[0] += mv[0]
                 total_move[1] += mv[1]
         kk_rect.move_ip(total_move)
+        if not out_window(kk_rect)[0] or not out_window(kk_rect)[1]:# 練習4
+            kk_rect.move_ip(-total_move[0],-total_move[1])
         screen.blit(bg_img, [0, 0])
         screen.blit(kk_img, kk_rect)
         bonb_rect.move_ip(vx,vy)# 練習2
+        if not out_window(bonb_rect)[0]:# 練習4
+            vx *= -1
+        elif not out_window(bonb_rect)[1]:#練習4
+            vy *= -1
         screen.blit(bonb,bonb_rect)# 練習1
         pg.display.update()
         tmr += 1
