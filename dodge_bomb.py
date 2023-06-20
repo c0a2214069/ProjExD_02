@@ -1,7 +1,7 @@
 import sys
 import random
 import pygame as pg
-
+import time
 
 WIDTH, HEIGHT = 1600, 900
 delta = {pg.K_UP:(0,-5),pg.K_DOWN:(0,+5),pg.K_LEFT:(-5,0),pg.K_RIGHT:(+5,0)}
@@ -56,13 +56,17 @@ def main():
         screen.blit(bg_img, [0, 0])
         screen.blit(kk_img, kk_rect)
         bonb_rect.move_ip(vx*avx,vy*avy)# 練習2
+        print(kk_rect.centerx-bonb_rect.centerx)
         if not out_window(bonb_rect)[0]:# 練習4
             vx *= -1# 移動方向を反転させる
         elif not out_window(bonb_rect)[1]:#練習4
             vy *= -1
         screen.blit(bonb,bonb_rect)# 練習1
         if kk_rect.colliderect(bonb_rect):#こうかとんと爆弾が衝突したら
-            kk_img = pg.image.load("ex02/fig/6.png")#画像を変更
+            kk_img = pg.transform.rotozoom(pg.image.load("ex02/fig/6.png"),0,2.0)#画像を変更
+            screen.blit(kk_img, kk_rect)
+            pg.display.update()
+            time.sleep(3)
             return
         pg.display.update()
         tmr += 1
