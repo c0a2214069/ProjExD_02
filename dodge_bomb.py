@@ -25,29 +25,24 @@ def main():
     tmr = 0
     vx = +5# 練習2
     vy = +5# 練習2
-    total_move = [0,0]# 練習3
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT: 
                 return
         key_lst = pg.key.get_pressed()
+        total_move = [0,0]# 練習3
         for k,mv in delta.items():
-            if key_lst[pg.K_UP]:
-                total_move[1] -=5
-            if key_lst[pg.K_DOWN]:
-                total_move[1] += 5
-            if key_lst[pg.K_LEFT]:
-                total_move[0] -= 5
-            if key_lst[pg.K_RIGHT]:
-                total_move[0] += 5
-            kk_rect.move_ip(total_move[0],total_move[1])
+            if key_lst[k]: 
+                total_move[0] += mv[0]
+                total_move[1] += mv[1]
+        kk_rect.move_ip(total_move)
         screen.blit(bg_img, [0, 0])
         screen.blit(kk_img, kk_rect)
         bonb_rect.move_ip(vx,vy)# 練習2
         screen.blit(bonb,bonb_rect)# 練習1
         pg.display.update()
         tmr += 1
-        clock.tick(10)
+        clock.tick(50)
 
 
 if __name__ == "__main__":
