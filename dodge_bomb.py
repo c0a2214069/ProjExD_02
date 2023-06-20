@@ -7,9 +7,6 @@ WIDTH, HEIGHT = 1600, 900
 
 
 def main():
-    """
-    TEST
-    """
     pg.display.set_caption("逃げろ！こうかとん")
     screen = pg.display.set_mode((WIDTH, HEIGHT))
     bonb = pg.Surface((20,20))# 練習1
@@ -24,6 +21,8 @@ def main():
     kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)
     clock = pg.time.Clock()
     tmr = 0
+    vx = 0# 練習2
+    vy = 0# 練習2
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT: 
@@ -31,9 +30,12 @@ def main():
 
         screen.blit(bg_img, [0, 0])
         screen.blit(kk_img, [900, 400])
+        bonb_rect.move_ip(vx,vy)
         screen.blit(bonb,bonb_rect)# 練習1
         pg.display.update()
         tmr += 1
+        vx += 5
+        vy += 5
         clock.tick(10)
 
 
